@@ -16,10 +16,16 @@ final class CalendarDaysLoader: WeekDaysLoader {
     
     private let generator: DateGenerator
     private let lastWeekInterval: () -> DateInterval
+    private let thisWeekInterval: () -> DateInterval
     
-    init(generator: DateGenerator, lastWeekInterval: @escaping () -> DateInterval) {
+    init(
+        generator: DateGenerator,
+        lastWeekInterval: @escaping () -> DateInterval,
+        thisWeekInterval: @escaping () -> DateInterval
+    ) {
         self.generator = generator
         self.lastWeekInterval = lastWeekInterval
+        self.thisWeekInterval = thisWeekInterval
     }
     
     func loadDays() -> [WeekDay] {
@@ -28,6 +34,8 @@ final class CalendarDaysLoader: WeekDaysLoader {
         dates.forEach { date in
             if lastWeekInterval().contains(date) {
                 days.append(WeekDay(type: .pastWeek(date)))
+            } else if thisWeekInterval().contains(date) {
+                days.append(WeekDay(type: .thisWeek(date)))
             }
         }
         return days
@@ -80,11 +88,27 @@ final class CalendarDaysLoaderTests: XCTestCase {
         ])
     }
     
+    func test_loadDays_withThisWeekDate_loadsWeekDayWithThisWeekType() {
+        let july18 = Date(timeIntervalSince1970: 1658102400)
+        let july19 = Date(timeIntervalSince1970: 1658188800)
+        let july24 = Date(timeIntervalSince1970: 1658620800)
+        let (sut, generator) = makeSUT(thisWeekInterval: { DateInterval(start: july18, end: july24)})
+
+
+        generator.stub(with: [july19])
+        let result = sut.loadDays()
+
+        XCTAssertEqual(result, [
+            WeekDay(type: .thisWeek(july19)),
+        ])
+    }
+    
     private func makeSUT(
-        lastWeekInterval: @escaping () -> DateInterval = DateInterval.init
+        lastWeekInterval: @escaping () -> DateInterval = DateInterval.init,
+        thisWeekInterval: @escaping () -> DateInterval = DateInterval.init
     ) -> (sut: CalendarDaysLoader, generator: StubDateGenerator) {
         let generator = StubDateGenerator()
-        let sut = CalendarDaysLoader(generator: generator, lastWeekInterval: lastWeekInterval)
+        let sut = CalendarDaysLoader(generator: generator, lastWeekInterval: lastWeekInterval, thisWeekInterval: thisWeekInterval)
         return (sut, generator)
     }
 
