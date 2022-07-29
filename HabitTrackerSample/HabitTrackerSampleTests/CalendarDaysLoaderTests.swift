@@ -139,63 +139,56 @@ final class CalendarDaysLoaderTests: XCTestCase {
         ])
     }
     
-//    func test_loadDays_withAllIntervals_loadsAllWeekTypes() {
-//        let july18 = TimeInterval(1658102400)
-//        let july24 = TimeInterval(1658620800)
-//        let july19 = TimeInterval(1658188800)
-//
-//        let previousWeekMonday = Date(timeIntervalSince1970: july18)
-//        let previousWeekSunday = Date(timeIntervalSince1970: july24)
-//        let specificDayInPreviousWeek = Date(timeIntervalSince1970: july19)
-//        let previousWeekInterval = DateInterval(start: previousWeekMonday, end: previousWeekSunday)
-//
-//        let july25 = TimeInterval(1658707200)
-//        let july31 = TimeInterval(1659225600)
-//        let july29 = TimeInterval(1659052800)
-//
-//        let thisWeekMonday = Date(timeIntervalSince1970: july25)
-//        let thisWeekSunday = Date(timeIntervalSince1970: july31)
-//        let specificDayInThisWeek = Date(timeIntervalSince1970: july29)
-//        let thisWeekInterval = DateInterval(start: thisWeekMonday, end: thisWeekSunday)
-//
-//        let august1 = TimeInterval(1659312000)
-//        let august7 = TimeInterval(1659830400)
-//        let august2 = TimeInterval(1659398400)
-//
-//        let nextWeekStart = Date(timeIntervalSince1970: august1)
-//        let nextWeekEnd = Date(timeIntervalSince1970: august7)
-//        let specificDayInNextWeek = Date(timeIntervalSince1970: august2)
-//        let nextWeekInterval = DateInterval(start: nextWeekStart, end: nextWeekEnd)
-//
-//        let july28 = TimeInterval(1658966400)
-//        let today = Date(timeIntervalSince1970: july28)
-//        var calendar = Calendar(identifier: .iso8601)
-//        calendar.timeZone = TimeZone(identifier: "GMT")!
-//
-//        let (sut, generator) = makeSUT(
-//            lastWeekInterval: { previousWeekInterval },
-//            thisWeekInterval: { thisWeekInterval },
-//            nextWeekInterval: { nextWeekInterval },
-//            today: { today },
-//            calendar: calendar
-//        )
-//
-//        generator.stub(with: [
-//            specificDayInPreviousWeek,
-//            specificDayInThisWeek,
-//            specificDayInNextWeek,
-//            today
-//        ])
-//        let result = sut.loadDays()
-//
-//        XCTAssertEqual(result, [
-//            WeekDay(type: .pastWeek(specificDayInPreviousWeek)),
-//            WeekDay(type: .thisWeek(specificDayInThisWeek)),
-//            WeekDay(type: .nextWeek(specificDayInNextWeek)),
-//            WeekDay(type: .today(today))
-//        ])
-//    }
-//
+    func test_loadDays_withAllIntervals_loadsAllWeekTypes() {
+        let july18 = TimeInterval(1658102400)
+        let dateStartInThePast = Date(timeIntervalSince1970: july18)
+
+        let july27 = TimeInterval(1658880000)
+        let dateEndInThePast = Date(timeIntervalSince1970: july27)
+
+        let july19 = TimeInterval(1658188800)
+        let specificDayInThePast = Date(timeIntervalSince1970: july19)
+
+        let intervalInThePast = DateInterval(start: dateStartInThePast, end: dateEndInThePast)
+        
+        let july28 = TimeInterval(1658966400)
+        let today = Date(timeIntervalSince1970: july28)
+
+        let july29 = TimeInterval(1659052800)
+        let dateStartInTheFuture = Date(timeIntervalSince1970: july29)
+
+        let august7 = TimeInterval(1659830400)
+        let dateEndInTheFuture = Date(timeIntervalSince1970: august7)
+
+        let august2 = TimeInterval(1659398400)
+        let specificDayInTheFuture = Date(timeIntervalSince1970: august2)
+
+        let intervalInTheFuture = DateInterval(start: dateStartInTheFuture, end: dateEndInTheFuture)
+        
+        var calendar = Calendar(identifier: .iso8601)
+        calendar.timeZone = TimeZone(identifier: "GMT")!
+
+        let (sut, generator) = makeSUT(
+            lastWeekInterval: { intervalInThePast },
+            nextWeekInterval: { intervalInTheFuture },
+            today: { today },
+            calendar: calendar
+        )
+
+        generator.stub(with: [
+            specificDayInThePast,
+            specificDayInTheFuture,
+            today
+        ])
+        let result = sut.loadDays()
+
+        XCTAssertEqual(result, [
+            WeekDay(type: .pastWeek(specificDayInThePast)),
+            WeekDay(type: .nextWeek(specificDayInTheFuture)),
+            WeekDay(type: .today(today))
+        ])
+    }
+
     private func makeSUT(
         lastWeekInterval: @escaping () -> DateInterval = DateInterval.init,
         nextWeekInterval: @escaping () -> DateInterval = DateInterval.init,
