@@ -41,7 +41,7 @@ final class CalendarDaysLoader: WeekDaysLoader {
         var days = [WeekDay]()
         let dates = generator.generateDates()
         dates.forEach { date in
-            if lastWeekInterval().contains(date) {
+            if isInLastWeekInterval(date) {
                 days.append(WeekDay(type: .pastWeek(date)))
             } else if thisWeekInterval().contains(date) {
                 days.append(WeekDay(type: .thisWeek(date)))
@@ -52,6 +52,10 @@ final class CalendarDaysLoader: WeekDaysLoader {
             }
         }
         return days
+    }
+    
+    private func isInLastWeekInterval(_ date: Date) -> Bool {
+        lastWeekInterval().contains(date)
     }
 }
 
