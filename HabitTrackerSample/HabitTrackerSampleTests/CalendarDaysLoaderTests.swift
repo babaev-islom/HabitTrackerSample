@@ -17,15 +17,18 @@ final class CalendarDaysLoader: WeekDaysLoader {
     private let generator: DateGenerator
     private let lastWeekInterval: () -> DateInterval
     private let thisWeekInterval: () -> DateInterval
+    private let nextWeekInterval: () -> DateInterval
     
     init(
         generator: DateGenerator,
         lastWeekInterval: @escaping () -> DateInterval,
-        thisWeekInterval: @escaping () -> DateInterval
+        thisWeekInterval: @escaping () -> DateInterval,
+        nextWeekInterval: @escaping () -> DateInterval
     ) {
         self.generator = generator
         self.lastWeekInterval = lastWeekInterval
         self.thisWeekInterval = thisWeekInterval
+        self.nextWeekInterval = nextWeekInterval
     }
     
     func loadDays() -> [WeekDay] {
@@ -36,6 +39,8 @@ final class CalendarDaysLoader: WeekDaysLoader {
                 days.append(WeekDay(type: .pastWeek(date)))
             } else if thisWeekInterval().contains(date) {
                 days.append(WeekDay(type: .thisWeek(date)))
+            } else if nextWeekInterval().contains(date) {
+                days.append(WeekDay(type: .nextWeek(date)))
             }
         }
         return days
@@ -103,12 +108,33 @@ final class CalendarDaysLoaderTests: XCTestCase {
         ])
     }
     
+    func test_loadDays_withNextWeekDate_loadsWeekDayWithNextWeekType() {
+        let july18 = Date(timeIntervalSince1970: 1658102400)
+        let july19 = Date(timeIntervalSince1970: 1658188800)
+        let july24 = Date(timeIntervalSince1970: 1658620800)
+        let (sut, generator) = makeSUT(nextWeekInterval: { DateInterval(start: july18, end: july24)})
+
+
+        generator.stub(with: [july19])
+        let result = sut.loadDays()
+
+        XCTAssertEqual(result, [
+            WeekDay(type: .nextWeek(july19)),
+        ])
+    }
+    
     private func makeSUT(
         lastWeekInterval: @escaping () -> DateInterval = DateInterval.init,
-        thisWeekInterval: @escaping () -> DateInterval = DateInterval.init
+        thisWeekInterval: @escaping () -> DateInterval = DateInterval.init,
+        nextWeekInterval: @escaping () -> DateInterval = DateInterval.init
     ) -> (sut: CalendarDaysLoader, generator: StubDateGenerator) {
         let generator = StubDateGenerator()
-        let sut = CalendarDaysLoader(generator: generator, lastWeekInterval: lastWeekInterval, thisWeekInterval: thisWeekInterval)
+        let sut = CalendarDaysLoader(
+            generator: generator,
+            lastWeekInterval: lastWeekInterval,
+            thisWeekInterval: thisWeekInterval,
+            nextWeekInterval: nextWeekInterval
+        )
         return (sut, generator)
     }
 
