@@ -15,9 +15,11 @@ protocol DateGenerator {
 final class CalendarDaysLoader: WeekDaysLoader {
     
     private let generator: DateGenerator
+    private let lastWeek: () -> Date
     
-    init(generator: DateGenerator) {
+    init(generator: DateGenerator, lastWeek: @escaping () -> Date ) {
         self.generator = generator
+        self.lastWeek = lastWeek
     }
     
     func loadDays() -> [WeekDay] {
@@ -33,8 +35,7 @@ final class CalendarDaysLoader: WeekDaysLoader {
 final class CalendarDaysLoaderTests: XCTestCase {
     
     func test_loadDays_doesNotLoadDays() {
-        let generator = StubDateGenerator()
-        let sut = CalendarDaysLoader(generator: generator)
+        let (sut, generator) = makeSUT()
         
         generator.stub(with: [])
         let result = sut.loadDays()
@@ -45,16 +46,22 @@ final class CalendarDaysLoaderTests: XCTestCase {
     func test_loadDays_loadsOneDay() {
         let anyDate = Date()
         let expectedDay = WeekDay(type: .today(anyDate))
-        let generator = StubDateGenerator()
-        let sut = CalendarDaysLoader(generator: generator)
-        
+        let (sut, generator) = makeSUT()
+
         generator.stub(with: [anyDate])
         let result = sut.loadDays()
 
         XCTAssertEqual(result, [expectedDay])
     }
-
     
+    private func makeSUT(
+        lastWeek: @escaping () -> Date = Date.init
+    ) -> (sut: CalendarDaysLoader, generator: StubDateGenerator) {
+        let generator = StubDateGenerator()
+        let sut = CalendarDaysLoader(generator: generator, lastWeek: lastWeek)
+        return (sut, generator)
+    }
+
     private class StubDateGenerator: DateGenerator {
         
         private var _stub: [Date]?
