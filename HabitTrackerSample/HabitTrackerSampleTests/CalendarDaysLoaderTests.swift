@@ -15,14 +15,15 @@ protocol DateGenerator {
 final class CalendarDaysLoader: WeekDaysLoader {
     
     private let generator: DateGenerator
-    private let lastWeek: () -> Date
+    private let lastWeekInterval: () -> DateInterval
     
-    init(generator: DateGenerator, lastWeek: @escaping () -> Date ) {
+    init(generator: DateGenerator, lastWeekInterval: @escaping () -> DateInterval) {
         self.generator = generator
-        self.lastWeek = lastWeek
+        self.lastWeekInterval = lastWeekInterval
     }
     
     func loadDays() -> [WeekDay] {
+        
         let dates = generator.generateDates()
         if let firstDate = dates.first {
             return [WeekDay(type: .today(firstDate))]
@@ -44,19 +45,28 @@ final class CalendarDaysLoaderTests: XCTestCase {
     }
 
     func test_loadDays_loadsOneDay() {
-        let (sut, generator) = makeSUT()
+        var calendar = Calendar(identifier: .gregorian)
+        calendar.timeZone = TimeZone(identifier: "GMT")!
 
-        generator.stub(with: [Date()])
+        let today = Date()
+        let yesterday = calendar.date(byAdding: .day, value: -1, to: today)!
+        let tomorrow = calendar.date(byAdding: .day, value: 1, to: today)!
+        
+        let (sut, generator) = makeSUT(lastWeekInterval: {
+            DateInterval(start: yesterday, end: tomorrow)
+        })
+
+        generator.stub(with: [today])
         let result = sut.loadDays()
 
         XCTAssertEqual(result.count, 1)
     }
     
     private func makeSUT(
-        lastWeek: @escaping () -> Date = Date.init
+        lastWeekInterval: @escaping () -> DateInterval = DateInterval.init
     ) -> (sut: CalendarDaysLoader, generator: StubDateGenerator) {
         let generator = StubDateGenerator()
-        let sut = CalendarDaysLoader(generator: generator, lastWeek: lastWeek)
+        let sut = CalendarDaysLoader(generator: generator, lastWeekInterval: lastWeekInterval)
         return (sut, generator)
     }
 
