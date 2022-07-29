@@ -16,7 +16,6 @@ final class CalendarDaysLoader: WeekDaysLoader {
     
     private let generator: DateGenerator
     private let lastWeekInterval: () -> DateInterval
-    private let thisWeekInterval: () -> DateInterval
     private let nextWeekInterval: () -> DateInterval
     private let today: () -> Date
     private let calendar: Calendar
@@ -24,14 +23,12 @@ final class CalendarDaysLoader: WeekDaysLoader {
     init(
         generator: DateGenerator,
         lastWeekInterval: @escaping () -> DateInterval,
-        thisWeekInterval: @escaping () -> DateInterval,
         nextWeekInterval: @escaping () -> DateInterval,
         today: @escaping () -> Date,
         calendar: Calendar
     ) {
         self.generator = generator
         self.lastWeekInterval = lastWeekInterval
-        self.thisWeekInterval = thisWeekInterval
         self.nextWeekInterval = nextWeekInterval
         self.today = today
         self.calendar = calendar
@@ -54,10 +51,6 @@ final class CalendarDaysLoader: WeekDaysLoader {
     
     private func isInLastWeekInterval(_ date: Date) -> Bool {
         lastWeekInterval().contains(date)
-    }
-    
-    private func inThisWeekInterval(_ date: Date) -> Bool {
-        thisWeekInterval().contains(date)
     }
     
     private func inNextWeekInterval(_ date: Date) -> Bool {
@@ -205,7 +198,6 @@ final class CalendarDaysLoaderTests: XCTestCase {
 //
     private func makeSUT(
         lastWeekInterval: @escaping () -> DateInterval = DateInterval.init,
-        thisWeekInterval: @escaping () -> DateInterval = DateInterval.init,
         nextWeekInterval: @escaping () -> DateInterval = DateInterval.init,
         today: @escaping () -> Date = Date.init,
         calendar: Calendar = Calendar(identifier: .iso8601)
@@ -214,7 +206,6 @@ final class CalendarDaysLoaderTests: XCTestCase {
         let sut = CalendarDaysLoader(
             generator: generator,
             lastWeekInterval: lastWeekInterval,
-            thisWeekInterval: thisWeekInterval,
             nextWeekInterval: nextWeekInterval,
             today: today,
             calendar: calendar
