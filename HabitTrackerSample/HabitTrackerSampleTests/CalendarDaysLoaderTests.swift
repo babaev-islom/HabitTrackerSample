@@ -44,14 +44,12 @@ final class CalendarDaysLoaderTests: XCTestCase {
     }
 
     func test_loadDays_loadsOneDay() {
-        let anyDate = Date()
-        let expectedDay = WeekDay(type: .today(anyDate))
         let (sut, generator) = makeSUT()
 
-        generator.stub(with: [anyDate])
+        generator.stub(with: [Date()])
         let result = sut.loadDays()
 
-        XCTAssertEqual(result, [expectedDay])
+        XCTAssertEqual(result.count, 1)
     }
     
     private func makeSUT(
