@@ -47,7 +47,7 @@ final class CalendarDaysLoader: WeekDaysLoader {
                 days.append(WeekDay(type: .thisWeek(date)))
             } else if inNextWeekInterval(date) {
                 days.append(WeekDay(type: .nextWeek(date)))
-            } else if calendar.dateComponents([.day], from: date, to: today()).day == 0 {
+            } else if isToday(date) {
                 days.append(WeekDay(type: .today(date)))
             }
         }
@@ -64,6 +64,11 @@ final class CalendarDaysLoader: WeekDaysLoader {
     
     private func inNextWeekInterval(_ date: Date) -> Bool {
         nextWeekInterval().contains(date)
+    }
+    
+    private func isToday(_ date: Date) -> Bool {
+        let dayDifferences = calendar.dateComponents([.day], from: date, to: today()).day
+        return dayDifferences == 0
     }
 }
 
