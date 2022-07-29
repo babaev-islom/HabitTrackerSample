@@ -40,7 +40,7 @@ final class CalendarDaysLoaderTests: XCTestCase {
         generator.stub(with: [])
         let result = sut.loadDays()
         
-        XCTAssertEqual(result, [])
+        XCTAssertTrue(result.isEmpty)
     }
 
     func test_loadDays_loadsOneDay() {
