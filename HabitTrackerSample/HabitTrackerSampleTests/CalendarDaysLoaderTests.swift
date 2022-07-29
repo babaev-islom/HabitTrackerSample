@@ -21,7 +21,11 @@ final class CalendarDaysLoader: WeekDaysLoader {
     }
     
     func loadDays() -> [WeekDay] {
-        []
+        let dates = generator.generateDates()
+        if let firstDate = dates.first {
+            return [WeekDay(type: .today(firstDate))]
+        }
+        return []
     }
 }
 
@@ -32,14 +36,38 @@ final class CalendarDaysLoaderTests: XCTestCase {
         let generator = StubDateGenerator()
         let sut = CalendarDaysLoader(generator: generator)
         
+        generator.stub(with: [])
         let result = sut.loadDays()
         
         XCTAssertEqual(result, [])
     }
+
+    func test_loadDays_loadsOneDay() {
+        let anyDate = Date()
+        let expectedDay = WeekDay(type: .today(anyDate))
+        let generator = StubDateGenerator()
+        let sut = CalendarDaysLoader(generator: generator)
+        
+        generator.stub(with: [anyDate])
+        let result = sut.loadDays()
+
+        XCTAssertEqual(result, [expectedDay])
+    }
+
     
     private class StubDateGenerator: DateGenerator {
+        
+        private var _stub: [Date]?
+        
+        func stub(with dates: [Date]) {
+            self._stub = dates
+        }
+        
         func generateDates() -> [Date] {
-            []
+            guard let stub = _stub else {
+                fatalError("Stub the generator before using it. Dev mistake!")
+            }
+            return stub
         }
     }
     
