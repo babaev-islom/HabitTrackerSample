@@ -7,6 +7,6 @@
 
 import Foundation
 
-struct WeekDay {
+struct WeekDay: Equatable {
     let type: WeekDayType
 }

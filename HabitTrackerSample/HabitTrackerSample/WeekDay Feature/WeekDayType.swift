@@ -7,7 +7,7 @@
 
 import Foundation
 
-enum WeekDayType {
+enum WeekDayType: Equatable {
     case pastWeek(Date)
     case today(Date)
     case thisWeek(Date)
