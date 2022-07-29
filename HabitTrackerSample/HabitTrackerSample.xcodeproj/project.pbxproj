@@ -83,9 +83,7 @@
 				44A53BF32893FE2A009880BF /* Assets.xcassets */,
 				44A53BF52893FE2A009880BF /* LaunchScreen.storyboard */,
 				44A53BF82893FE2A009880BF /* Info.plist */,
-				44A53C0B2893FEFE009880BF /* WeekDayType.swift */,
-				44A53C0D2893FFB5009880BF /* WeekDay.swift */,
-				44A53C0F2893FFDD009880BF /* WeekDaysLoader.swift */,
+				44A53C1128940011009880BF /* WeekDay Feature */,
 			);
 			path = HabitTrackerSample;
 			sourceTree = "<group>";
@@ -95,6 +93,16 @@
 			children = (
 			);
 			path = HabitTrackerSampleTests;
+			sourceTree = "<group>";
+		};
+		44A53C1128940011009880BF /* WeekDay Feature */ = {
+			isa = PBXGroup;
+			children = (
+				44A53C0B2893FEFE009880BF /* WeekDayType.swift */,
+				44A53C0D2893FFB5009880BF /* WeekDay.swift */,
+				44A53C0F2893FFDD009880BF /* WeekDaysLoader.swift */,
+			);
+			path = "WeekDay Feature";
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
