@@ -63,13 +63,13 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
-		447F534928942BC500B115F5 /* Calendar */ = {
+		447F534928942BC500B115F5 /* Calendar Use Case */ = {
 			isa = PBXGroup;
 			children = (
 				447F534A28942BE200B115F5 /* DateGenerator.swift */,
 				447F534C28942C0600B115F5 /* CalendarDaysLoader.swift */,
 			);
-			path = Calendar;
+			path = "Calendar Use Case";
 			sourceTree = "<group>";
 		};
 		44A53BDE2893FE29009880BF = {
@@ -98,7 +98,7 @@
 				44A53BF32893FE2A009880BF /* Assets.xcassets */,
 				44A53BF52893FE2A009880BF /* LaunchScreen.storyboard */,
 				44A53BF82893FE2A009880BF /* Info.plist */,
-				447F534928942BC500B115F5 /* Calendar */,
+				447F534928942BC500B115F5 /* Calendar Use Case */,
 				44A53C1128940011009880BF /* WeekDay Feature */,
 			);
 			path = HabitTrackerSample;
