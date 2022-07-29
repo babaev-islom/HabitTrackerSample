@@ -39,7 +39,7 @@ final class CalendarDaysLoader: WeekDaysLoader {
         let dates = generator.generateDates()
         dates.forEach { date in
             if isInLastWeekInterval(date) {
-                days.append(WeekDay(type: .pastWeek(date)))
+                days.append(WeekDay(type: .inThePast(date)))
             } else if isToday(date) {
                 days.append(WeekDay(type: .today(date)))
             } else if inNextWeekInterval(date) {
@@ -104,8 +104,8 @@ final class CalendarDaysLoaderTests: XCTestCase {
         let result = sut.loadDays()
 
         XCTAssertEqual(result, [
-            WeekDay(type: .pastWeek(july19)),
-            WeekDay(type: .pastWeek(july20))
+            WeekDay(type: .inThePast(july19)),
+            WeekDay(type: .inThePast(july20))
         ])
     }
     
@@ -183,7 +183,7 @@ final class CalendarDaysLoaderTests: XCTestCase {
         let result = sut.loadDays()
 
         XCTAssertEqual(result, [
-            WeekDay(type: .pastWeek(specificDayInThePast)),
+            WeekDay(type: .inThePast(specificDayInThePast)),
             WeekDay(type: .nextWeek(specificDayInTheFuture)),
             WeekDay(type: .today(today))
         ])
