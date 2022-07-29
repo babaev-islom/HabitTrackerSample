@@ -27,7 +27,7 @@ final class CalendarDaysLoaderTests: XCTestCase {
         let july19 = Date(timeIntervalSince1970: 1658188800)
         let july20 = Date(timeIntervalSince1970: 1658319564)
         let july24 = Date(timeIntervalSince1970: 1658620800)
-        let (sut, generator) = makeSUT(lastWeekInterval: { DateInterval(start: july18, end: july24)})
+        let (sut, generator) = makeSUT(intervalInThePast: { DateInterval(start: july18, end: july24)})
 
         generator.stub(with: [july19, july20])
         let result = sut.loadDays()
@@ -42,8 +42,7 @@ final class CalendarDaysLoaderTests: XCTestCase {
         let july18 = Date(timeIntervalSince1970: 1658102400)
         let july19 = Date(timeIntervalSince1970: 1658188800)
         let july24 = Date(timeIntervalSince1970: 1658620800)
-        let (sut, generator) = makeSUT(nextWeekInterval: { DateInterval(start: july18, end: july24)})
-
+        let (sut, generator) = makeSUT(intervalInTheFuture: { DateInterval(start: july18, end: july24)})
 
         generator.stub(with: [july19])
         let result = sut.loadDays()
@@ -98,8 +97,8 @@ final class CalendarDaysLoaderTests: XCTestCase {
         calendar.timeZone = TimeZone(identifier: "GMT")!
 
         let (sut, generator) = makeSUT(
-            lastWeekInterval: { intervalInThePast },
-            nextWeekInterval: { intervalInTheFuture },
+            intervalInThePast: { intervalInThePast },
+            intervalInTheFuture: { intervalInTheFuture },
             today: { today },
             calendar: calendar
         )
@@ -119,16 +118,16 @@ final class CalendarDaysLoaderTests: XCTestCase {
     }
 
     private func makeSUT(
-        lastWeekInterval: @escaping () -> DateInterval = DateInterval.init,
-        nextWeekInterval: @escaping () -> DateInterval = DateInterval.init,
+        intervalInThePast: @escaping () -> DateInterval = DateInterval.init,
+        intervalInTheFuture: @escaping () -> DateInterval = DateInterval.init,
         today: @escaping () -> Date = Date.init,
         calendar: Calendar = Calendar(identifier: .iso8601)
     ) -> (sut: CalendarDaysLoader, generator: StubDateGenerator) {
         let generator = StubDateGenerator()
         let sut = CalendarDaysLoader(
             generator: generator,
-            lastWeekInterval: lastWeekInterval,
-            nextWeekInterval: nextWeekInterval,
+            intervalInThePast: intervalInThePast,
+            intervalInTheFuture: intervalInTheFuture,
             today: today,
             calendar: calendar
         )
