@@ -93,7 +93,7 @@ final class CalendarDaysLoaderTests: XCTestCase {
         XCTAssertEqual(result.count, 1)
     }
     
-    func test_loadDays_withLastWeekDate_loadsWeekDayWithPastWeekType() {
+    func test_loadDays_withWeekDateInThePast_loadsWeekDayInThePast() {
         let july18 = Date(timeIntervalSince1970: 1658102400)
         let july19 = Date(timeIntervalSince1970: 1658188800)
         let july20 = Date(timeIntervalSince1970: 1658319564)
@@ -109,7 +109,7 @@ final class CalendarDaysLoaderTests: XCTestCase {
         ])
     }
     
-    func test_loadDays_withNextWeekDate_loadsWeekDayWithNextWeekType() {
+    func test_loadDays_withWeekDateInTheFuture_loadsWeekDayInTheFuture() {
         let july18 = Date(timeIntervalSince1970: 1658102400)
         let july19 = Date(timeIntervalSince1970: 1658188800)
         let july24 = Date(timeIntervalSince1970: 1658620800)
