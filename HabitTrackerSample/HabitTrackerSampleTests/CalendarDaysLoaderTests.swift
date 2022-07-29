@@ -75,24 +75,6 @@ final class CalendarDaysLoaderTests: XCTestCase {
         XCTAssertTrue(result.isEmpty)
     }
 
-    func test_loadDays_loadsOneDay() {
-        var calendar = Calendar(identifier: .gregorian)
-        calendar.timeZone = TimeZone(identifier: "GMT")!
-
-        let today = Date()
-        let yesterday = calendar.date(byAdding: .day, value: -1, to: today)!
-        let tomorrow = calendar.date(byAdding: .day, value: 1, to: today)!
-        
-        let (sut, generator) = makeSUT(lastWeekInterval: {
-            DateInterval(start: yesterday, end: tomorrow)
-        })
-
-        generator.stub(with: [today])
-        let result = sut.loadDays()
-
-        XCTAssertEqual(result.count, 1)
-    }
-    
     func test_loadDays_withWeekDateInThePast_loadsWeekDayInThePast() {
         let july18 = Date(timeIntervalSince1970: 1658102400)
         let july19 = Date(timeIntervalSince1970: 1658188800)
