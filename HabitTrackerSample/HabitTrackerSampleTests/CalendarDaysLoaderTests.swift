@@ -23,12 +23,14 @@ final class CalendarDaysLoader: WeekDaysLoader {
     }
     
     func loadDays() -> [WeekDay] {
-        
+        var days = [WeekDay]()
         let dates = generator.generateDates()
-        if let firstDate = dates.first {
-            return [WeekDay(type: .today(firstDate))]
+        dates.forEach { date in
+            if lastWeekInterval().contains(date) {
+                days.append(WeekDay(type: .pastWeek(date)))
+            }
         }
-        return []
+        return days
     }
 }
 
@@ -60,6 +62,22 @@ final class CalendarDaysLoaderTests: XCTestCase {
         let result = sut.loadDays()
 
         XCTAssertEqual(result.count, 1)
+    }
+    
+    func test_loadDays_withLastWeekDate_loadsWeekDayWithPastWeekType() {
+        let july18 = Date(timeIntervalSince1970: 1658102400)
+        let july19 = Date(timeIntervalSince1970: 1658188800)
+        let july20 = Date(timeIntervalSince1970: 1658319564)
+        let july24 = Date(timeIntervalSince1970: 1658620800)
+        let (sut, generator) = makeSUT(lastWeekInterval: { DateInterval(start: july18, end: july24)})
+
+        generator.stub(with: [july19, july20])
+        let result = sut.loadDays()
+
+        XCTAssertEqual(result, [
+            WeekDay(type: .pastWeek(july19)),
+            WeekDay(type: .pastWeek(july20))
+        ])
     }
     
     private func makeSUT(
