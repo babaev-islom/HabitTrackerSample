@@ -18,17 +18,23 @@ final class CalendarDaysLoader: WeekDaysLoader {
     private let lastWeekInterval: () -> DateInterval
     private let thisWeekInterval: () -> DateInterval
     private let nextWeekInterval: () -> DateInterval
+    private let today: () -> Date
+    private let calendar: Calendar
     
     init(
         generator: DateGenerator,
         lastWeekInterval: @escaping () -> DateInterval,
         thisWeekInterval: @escaping () -> DateInterval,
-        nextWeekInterval: @escaping () -> DateInterval
+        nextWeekInterval: @escaping () -> DateInterval,
+        today: @escaping () -> Date,
+        calendar: Calendar
     ) {
         self.generator = generator
         self.lastWeekInterval = lastWeekInterval
         self.thisWeekInterval = thisWeekInterval
         self.nextWeekInterval = nextWeekInterval
+        self.today = today
+        self.calendar = calendar
     }
     
     func loadDays() -> [WeekDay] {
@@ -41,6 +47,8 @@ final class CalendarDaysLoader: WeekDaysLoader {
                 days.append(WeekDay(type: .thisWeek(date)))
             } else if nextWeekInterval().contains(date) {
                 days.append(WeekDay(type: .nextWeek(date)))
+            } else if calendar.dateComponents([.day], from: date, to: today()).day == 0 {
+                days.append(WeekDay(type: .today(date)))
             }
         }
         return days
@@ -123,17 +131,36 @@ final class CalendarDaysLoaderTests: XCTestCase {
         ])
     }
     
+    func test_loadDays_withTodaysDate_loadsWeekDayWithTodayType() {
+        let today = Date(timeIntervalSince1970: 1658188800)
+        let todayOneSecondLater = Date(timeIntervalSince1970: 1658188801)
+        var calendar = Calendar(identifier: .iso8601)
+        calendar.timeZone = TimeZone(identifier: "GMT")!
+        let (sut, generator) = makeSUT(today: { today }, calendar: calendar)
+
+        generator.stub(with: [todayOneSecondLater])
+        let result = sut.loadDays()
+
+        XCTAssertEqual(result, [
+            WeekDay(type: .today(todayOneSecondLater))
+        ])
+    }
+    
     private func makeSUT(
         lastWeekInterval: @escaping () -> DateInterval = DateInterval.init,
         thisWeekInterval: @escaping () -> DateInterval = DateInterval.init,
-        nextWeekInterval: @escaping () -> DateInterval = DateInterval.init
+        nextWeekInterval: @escaping () -> DateInterval = DateInterval.init,
+        today: @escaping () -> Date = Date.init,
+        calendar: Calendar = Calendar(identifier: .iso8601)
     ) -> (sut: CalendarDaysLoader, generator: StubDateGenerator) {
         let generator = StubDateGenerator()
         let sut = CalendarDaysLoader(
             generator: generator,
             lastWeekInterval: lastWeekInterval,
             thisWeekInterval: thisWeekInterval,
-            nextWeekInterval: nextWeekInterval
+            nextWeekInterval: nextWeekInterval,
+            today: today,
+            calendar: calendar
         )
         return (sut, generator)
     }
