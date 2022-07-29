@@ -10,5 +10,5 @@ import Foundation
 enum WeekDayType: Equatable {
     case inThePast(Date)
     case today(Date)
-    case nextWeek(Date)
+    case inTheFuture(Date)
 }
