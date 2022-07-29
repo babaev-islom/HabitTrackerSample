@@ -8,9 +8,6 @@
 import XCTest
 @testable import HabitTrackerSample
 
-protocol DateGenerator {
-    func generateDates() -> [Date]
-}
 
 final class CalendarDaysLoader: WeekDaysLoader {
     
