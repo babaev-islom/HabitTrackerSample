@@ -42,7 +42,21 @@ final class CalendarViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
+        view.addSubview(collectionView)
+        view.backgroundColor = .white
+        
         configureCollection(collectionView)
+    }
+    
+    override func viewDidLayoutSubviews() {
+        super.viewDidLayoutSubviews()
+        
+        NSLayoutConstraint.activate([
+            collectionView.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor, constant: 16),
+            collectionView.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 8),
+            collectionView.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -8),
+            collectionView.heightAnchor.constraint(equalToConstant: 64)
+        ])
     }
 }
 
