@@ -18,17 +18,22 @@ class CalendarDateGenerator: DateGenerator {
     }
     
     func generateDates() -> [Date] {
-        var dates = [Date]()
-        var start = interval().start
+        let start = interval().start
         let end = interval().end
         guard start != end else { return [] }
         
-        while start.compare(end) != .orderedDescending {
-            dates.append(start)
-            guard let nextDay = calendar.date(byAdding: .day, value: 1, to: start) else {
+        return generateDates(from: start, to: end)
+    }
+    
+    private func generateDates(from startDate: Date, to endDate: Date) -> [Date] {
+        var dates = [Date]()
+        var mutableStartDate = startDate
+        while mutableStartDate.compare(endDate) != .orderedDescending {
+            dates.append(mutableStartDate)
+            guard let nextDay = calendar.date(byAdding: .day, value: 1, to: mutableStartDate) else {
                 continue
             }
-            start = nextDay
+            mutableStartDate = nextDay
         }
         return dates
     }
