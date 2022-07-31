@@ -23,4 +23,12 @@ final class DayCellController {
         cell?.selectedView.isHidden = model.dateState != .today
         return cell!
     }
+    
+    func select() {
+        cell?.selectedView.isHidden = false
+    }
+    
+    func deselect() {
+        cell?.selectedView.isHidden = true
+    }
 }
