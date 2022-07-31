@@ -8,13 +8,6 @@
 import XCTest
 @testable import HabitTrackerSample
 
-
-struct PresentableDayModel {
-    let dayOfTheWeek: String
-    let dateOfTheMonth: String
-    let dateState: DateState
-}
-
 final class DayViewModel {
     static func map(
         weekDays: [WeekDay],
