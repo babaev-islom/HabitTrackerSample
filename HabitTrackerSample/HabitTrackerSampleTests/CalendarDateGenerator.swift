@@ -61,6 +61,18 @@ final class CalendarDateGeneratorTests: XCTestCase {
         XCTAssertEqual(result, [july18, july19])
     }
     
+    func test_generateDates_withIntervalOfThreeDays_loadsFourDates() {
+        let july18 = Date(timeIntervalSince1970: 1658102400)
+        let july21 = Date(timeIntervalSince1970: 1658361600)
+
+        let intervalFromJuly18ToJuly21 = DateInterval(start: july18, end: july21)
+        let sut = makeSUT(interval: { intervalFromJuly18ToJuly21 })
+        
+        let result = sut.generateDates()
+
+        XCTAssertEqual(result.count, 4)
+    }
+    
     private func makeSUT(interval: @escaping () -> DateInterval) -> CalendarDateGenerator {
         let calendar: Calendar = {
             var calendar = Calendar(identifier: .iso8601)
