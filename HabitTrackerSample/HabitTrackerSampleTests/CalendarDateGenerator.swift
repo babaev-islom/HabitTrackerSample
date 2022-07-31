@@ -40,6 +40,7 @@ final class CalendarDateGeneratorTests: XCTestCase {
     private lazy var calendar: Calendar = {
         var calendar = Calendar(identifier: .iso8601)
         calendar.timeZone = TimeZone(identifier: "GMT")!
+        calendar.locale = Locale(identifier: "en_US_POSIX")
         return calendar
     }()
     
