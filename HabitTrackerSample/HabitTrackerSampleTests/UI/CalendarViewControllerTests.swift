@@ -15,7 +15,6 @@ final class CalendarViewControllerTests: XCTestCase {
         loader.stub(with: [])
 
         let sut = makeSUT(loader: loader)
-
         sut.loadViewIfNeeded()
         
         XCTAssertEqual(sut.numberOfRenderedDays(), 0)
