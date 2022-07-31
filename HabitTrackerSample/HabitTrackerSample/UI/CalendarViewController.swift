@@ -12,10 +12,14 @@ final class CalendarViewController: UIViewController {
     
     private(set) lazy var collectionView: UICollectionView = {
         let layout = UICollectionViewFlowLayout()
+        layout.scrollDirection = .horizontal
         let collectionView = UICollectionView(frame: .zero, collectionViewLayout: layout)
         collectionView.delegate = self
         collectionView.dataSource = self
         collectionView.translatesAutoresizingMaskIntoConstraints = false
+        collectionView.isPagingEnabled = true
+        collectionView.isPrefetchingEnabled = false
+        collectionView.showsHorizontalScrollIndicator = false
         return collectionView
     }()
     
