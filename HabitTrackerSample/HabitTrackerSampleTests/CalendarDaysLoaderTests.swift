@@ -8,9 +8,6 @@
 import XCTest
 @testable import HabitTrackerSample
 
-
-
-
 final class CalendarDaysLoaderTests: XCTestCase {
     
     func test_loadDays_doesNotLoadDays() {
