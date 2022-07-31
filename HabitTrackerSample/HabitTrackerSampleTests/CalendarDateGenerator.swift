@@ -37,21 +37,12 @@ class CalendarDateGenerator: DateGenerator {
 }
 
 final class CalendarDateGeneratorTests: XCTestCase {
-    private lazy var calendar: Calendar = {
-        var calendar = Calendar(identifier: .iso8601)
-        calendar.timeZone = TimeZone(identifier: "GMT")!
-        calendar.locale = Locale(identifier: "en_US_POSIX")
-        return calendar
-    }()
     
     func test_generateDates_withTheSameDateIntervalForEndAndStart_loadsEmptyDates() {
         let july18 = Date(timeIntervalSince1970: 1658102400)
         let intervalWithTheSameStartAndEndDates = DateInterval(start: july18, end: july18)
 
-        let sut = CalendarDateGenerator(
-            interval: { intervalWithTheSameStartAndEndDates },
-            calendar: calendar
-        )
+        let sut = makeSUT(interval: { intervalWithTheSameStartAndEndDates })
         
         let result = sut.generateDates()
         
@@ -63,11 +54,23 @@ final class CalendarDateGeneratorTests: XCTestCase {
         let july19 = Date(timeIntervalSince1970: 1658188800)
 
         let intervalFromJuly18ToJuly19 = DateInterval(start: july18, end: july19)
-        let sut = CalendarDateGenerator(interval: { intervalFromJuly18ToJuly19 }, calendar: calendar)
-
+        let sut = makeSUT(interval: { intervalFromJuly18ToJuly19 })
+        
         let result = sut.generateDates()
 
         XCTAssertEqual(result, [july18, july19])
+    }
+    
+    private func makeSUT(interval: @escaping () -> DateInterval) -> CalendarDateGenerator {
+        let calendar: Calendar = {
+            var calendar = Calendar(identifier: .iso8601)
+            calendar.timeZone = TimeZone(identifier: "GMT")!
+            calendar.locale = Locale(identifier: "en_US_POSIX")
+            return calendar
+        }()
+        
+        let sut = CalendarDateGenerator(interval: interval, calendar: calendar)
+        return sut
     }
 
 }
