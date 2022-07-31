@@ -68,4 +68,15 @@ extension SectionCellController: UICollectionViewDelegate {
     }
 }
 
-extension SectionCellController: UICollectionViewDelegateFlowLayout {}
+extension SectionCellController: UICollectionViewDelegateFlowLayout {
+    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
+        let screenWidth = UIScreen.main.bounds.width
+        let itemWidth = (screenWidth/7) - 12
+        
+        return CGSize(width: itemWidth, height: 50)
+    }
+    
+    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, minimumInteritemSpacingForSectionAt section: Int) -> CGFloat {
+        6
+    }
+}

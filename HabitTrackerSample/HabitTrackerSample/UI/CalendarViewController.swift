@@ -101,4 +101,13 @@ extension CalendarViewController: UICollectionViewDelegate {
 
     }
 }
+
+extension CalendarViewController: UICollectionViewDelegateFlowLayout {
+    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
+        dataSource(forSection: indexPath.section, in: collectionView).collectionView?(collectionView, layout: collectionViewLayout, sizeForItemAt: indexPath) ?? .zero
+    }
+    
+    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, insetForSectionAt section: Int) -> UIEdgeInsets {
+        dataSource(forSection: section, in: collectionView).collectionView?(collectionView, layout: collectionViewLayout, insetForSectionAt: section) ?? .zero
+    }
 }
