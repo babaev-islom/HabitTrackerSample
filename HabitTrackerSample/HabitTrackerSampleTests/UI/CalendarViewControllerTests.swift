@@ -8,31 +8,7 @@
 import XCTest
 @testable import HabitTrackerSample
 
-final class DayCellController {
-    init(model: PresentableDayModel) {
-        
-    }
-}
 
-final class SectionCellController: NSObject {
-    private let dayCellControllers: [DayCellController]
-    
-    init(dayCellControllers: [DayCellController]) {
-        self.dayCellControllers = dayCellControllers
-    }
-}
-
-extension SectionCellController: UICollectionViewDataSource {
-    func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        dayCellControllers.count
-    }
-    
-    func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
-        UICollectionViewCell()
-    }
-}
-extension SectionCellController: UICollectionViewDelegate {}
-extension SectionCellController: UICollectionViewDelegateFlowLayout {}
 
 final class CalendarLoaderAdapter {
     private let timeZone: TimeZone
