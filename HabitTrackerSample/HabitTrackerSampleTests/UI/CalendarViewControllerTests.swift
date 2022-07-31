@@ -14,8 +14,8 @@ final class CalendarViewControllerTests: XCTestCase {
         let loader = WeekDaysLoaderStub()
         loader.stub(with: [])
 
-        let sut = CalendarFactory.makeCalendarViewController(loader: loader)
-            
+        let sut = makeSUT(loader: loader)
+
         sut.loadViewIfNeeded()
         
         XCTAssertEqual(sut.numberOfRenderedDays(), 0)
@@ -26,10 +26,14 @@ final class CalendarViewControllerTests: XCTestCase {
         let loader = WeekDaysLoaderStub()
         loader.stub(with: [WeekDay(type: .today(Date()))])
         
-        let sut = CalendarFactory.makeCalendarViewController(loader: loader)
+        let sut = makeSUT(loader: loader)
         sut.loadViewIfNeeded()
 
         XCTAssertEqual(sut.numberOfRenderedDays(), 1)
+    }
+    
+    private func makeSUT(loader: WeekDaysLoaderStub) -> CalendarViewController {
+        return CalendarFactory.makeCalendarViewController(loader: loader)
     }
     
     
