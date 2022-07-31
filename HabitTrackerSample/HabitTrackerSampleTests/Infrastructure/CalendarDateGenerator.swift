@@ -8,8 +8,6 @@
 import XCTest
 @testable import HabitTrackerSample
 
-
-
 final class CalendarDateGeneratorTests: XCTestCase {
     
     func test_generateDates_withTheSameDateIntervalForEndAndStart_loadsEmptyDates() {
