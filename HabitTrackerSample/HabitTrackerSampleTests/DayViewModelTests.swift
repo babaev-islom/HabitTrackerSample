@@ -8,11 +8,6 @@
 import XCTest
 @testable import HabitTrackerSample
 
-enum DateState {
-    case today
-    case inThePast
-    case inTheFuture
-}
 
 struct PresentableDayModel {
     let dayOfTheWeek: String
