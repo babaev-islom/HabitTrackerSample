@@ -6,6 +6,13 @@
 //
 
 import XCTest
+@testable import HabitTrackerSample
+
+final class CalendarFactory {
+    static func makeCalendarViewController(loader: WeekDaysLoader) -> CalendarViewController {
+        return CalendarViewController(cellControllers: [])
+    }
+}
 
 final class CalendarViewController: UIViewController {
     typealias CellController = UICollectionViewDataSource & UICollectionViewDelegate & UICollectionViewDelegateFlowLayout
@@ -30,12 +37,21 @@ final class CalendarViewController: UIViewController {
 
 final class CalendarViewControllerTests: XCTestCase {
     func test_viewDidLoad_doesNotRenderDays() {
-        let sut = CalendarViewController(cellControllers: [])
-        
+        let stub = WeekDaysLoaderStub()
+        let sut = CalendarFactory.makeCalendarViewController(loader: stub)
+            
         sut.loadViewIfNeeded()
         
         XCTAssertEqual(sut.numberOfRenderedDays(), 0)
     }
+    
+    
+    private class WeekDaysLoaderStub: WeekDaysLoader {
+        func loadDays() -> [WeekDay] {
+            []
+        }
+    }
+
 }
 
 private extension CalendarViewController {
