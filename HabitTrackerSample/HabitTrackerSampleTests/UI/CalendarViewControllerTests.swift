@@ -78,9 +78,7 @@ final class CalendarViewControllerTests: XCTestCase {
         XCTAssertTrue(cell2.isViewSelected, "Should be selected since it has today type")
         XCTAssertFalse(cell3.isViewSelected, "Should be deselected since it has inTheFuture type")
         
-        let dl = sut.collectionView.delegate
-        dl?.collectionView?(sut.collectionView, didSelectItemAt: IndexPath(item: 0, section: 0))
-        
+        sut.selectCell(at: 0)
         XCTAssertTrue(cell1.isViewSelected, "Should become selected after it was selected")
         XCTAssertFalse(cell2.isViewSelected, "Should become deselected after 1st cell was selected")
         XCTAssertFalse(cell3.isViewSelected, "Selection state should not have changed after 1st cell was selected")
@@ -105,13 +103,12 @@ final class CalendarViewControllerTests: XCTestCase {
         XCTAssertTrue(cell2.isViewSelected, "Should be selected since it has today type")
         XCTAssertFalse(cell3.isViewSelected, "Should be deselected since it has inTheFuture type")
         
-        let dl = sut.collectionView.delegate
-        dl?.collectionView?(sut.collectionView, didSelectItemAt: IndexPath(item: 1, section: 0))
+        sut.selectCell(at: 1)
         XCTAssertFalse(cell1.isViewSelected, "Should not change selection state after 1st cell was selected")
         XCTAssertTrue(cell2.isViewSelected, "Should not change cell selection even though it was already selected")
         XCTAssertFalse(cell3.isViewSelected, "Should not change selection state after 1st cell was selected")
         
-        dl?.collectionView?(sut.collectionView, didSelectItemAt: IndexPath(item: 0, section: 0))
+        sut.selectCell(at: 0)
         XCTAssertTrue(cell1.isViewSelected, "Should be set as selected after selecting it")
         XCTAssertFalse(cell2.isViewSelected, "Should be deselected after selecting 1st cell")
         XCTAssertFalse(cell3.isViewSelected, "Should not change selection state after 0st cell was selected")
@@ -162,5 +159,11 @@ private extension CalendarViewController {
         let indexPath = IndexPath(item: index, section: weekDaySection)
         let ds = collectionView.dataSource
         return ds?.collectionView(collectionView, cellForItemAt: indexPath) as? DayCollectionViewCell
+    }
+    
+    func selectCell(at index: Int) {
+        let indexPath = IndexPath(item: index, section: weekDaySection)
+        let dl = collectionView.delegate
+        dl?.collectionView?(collectionView, didSelectItemAt: indexPath)
     }
 }
