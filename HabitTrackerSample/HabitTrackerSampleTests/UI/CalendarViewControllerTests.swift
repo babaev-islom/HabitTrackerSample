@@ -31,9 +31,9 @@ final class CalendarViewControllerTests: XCTestCase {
         sut.loadViewIfNeeded()
 
         let cell = try XCTUnwrap(sut.cell(at: 0))
-        XCTAssertFalse(cell.selectedView.isHidden)
-        XCTAssertEqual(cell.dayOfTheWeekLabel.text, "Tue")
-        XCTAssertEqual(cell.dateOfTheMonthLabel.text, "19")
+        XCTAssertTrue(cell.isViewSelected)
+        XCTAssertEqual(cell.dayText, "Tue")
+        XCTAssertEqual(cell.dateText, "19")
     }
     
     private func makeSUT(loader: WeekDaysLoaderStub) -> CalendarViewController {
@@ -55,7 +55,20 @@ final class CalendarViewControllerTests: XCTestCase {
             return stub
         }
     }
+}
 
+private extension DayCollectionViewCell {
+    var isViewSelected: Bool {
+        selectedView.isHidden == false
+    }
+    
+    var dayText: String? {
+        dayOfTheWeekLabel.text
+    }
+    
+    var dateText: String? {
+        dateOfTheMonthLabel.text
+    }
 }
 
 private extension CalendarViewController {
