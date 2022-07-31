@@ -36,11 +36,34 @@ final class CalendarViewControllerTests: XCTestCase {
         XCTAssertEqual(cell.dateText, "19")
     }
     
+    func test_viewDidLoad_withTwoCells_rendersTwoDays() throws {
+        let july18 = Date(timeIntervalSince1970: 1658102400)
+        let july19 = Date(timeIntervalSince1970: 1658188800)
+        
+        let loader = WeekDaysLoaderStub()
+        loader.stub(with: [
+            WeekDay(type: .inThePast(july18)),
+            WeekDay(type: .today(july19))]
+        )
+        
+        let sut = makeSUT(loader: loader)
+        sut.loadViewIfNeeded()
+
+        let cell1 = try XCTUnwrap(sut.cell(at: 0))
+        XCTAssertFalse(cell1.isViewSelected)
+        XCTAssertEqual(cell1.dayText, "Mon")
+        XCTAssertEqual(cell1.dateText, "18")
+
+        let cell2 = try XCTUnwrap(sut.cell(at: 1))
+        XCTAssertTrue(cell2.isViewSelected)
+        XCTAssertEqual(cell2.dayText, "Tue")
+        XCTAssertEqual(cell2.dateText, "19")
+    }
+    
     private func makeSUT(loader: WeekDaysLoaderStub) -> CalendarViewController {
         return CalendarFactory.makeCalendarViewController(loader: loader)
     }
-    
-    
+        
     private class WeekDaysLoaderStub: WeekDaysLoader {
         private var _stub: [WeekDay]?
         func stub(with days: [WeekDay]) {
