@@ -39,6 +39,16 @@
          </BuildableReference>
       </CodeCoverageTargets>
       <Testables>
+         <TestableReference
+            skipped = "NO">
+            <BuildableReference
+               BuildableIdentifier = "primary"
+               BlueprintIdentifier = "44A53C012893FEE0009880BF"
+               BuildableName = "HabitTrackerSampleTests.xctest"
+               BlueprintName = "HabitTrackerSampleTests"
+               ReferencedContainer = "container:HabitTrackerSample.xcodeproj">
+            </BuildableReference>
+         </TestableReference>
       </Testables>
    </TestAction>
    <LaunchAction
