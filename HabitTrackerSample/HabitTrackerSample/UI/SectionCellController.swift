@@ -16,12 +16,16 @@ final class SectionCellController: NSObject {
 }
 
 extension SectionCellController: UICollectionViewDataSource {
+    func numberOfSections(in collectionView: UICollectionView) -> Int {
+        return 1
+    }
+    
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
         dayCellControllers.count
     }
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
-        UICollectionViewCell()
+        return dayCellControllers[indexPath.item].dequeueCell(in: collectionView, for: indexPath)
     }
 }
 extension SectionCellController: UICollectionViewDelegate {}

@@ -22,14 +22,21 @@ final class CalendarViewControllerTests: XCTestCase {
     }
     
     
-    func test_viewDidLoad_withOneCell_rendersOneDay() {
+    func test_viewDidLoad_withOneCell_rendersOneDay() throws {
+        let july19 = Date(timeIntervalSince1970: 1658188800)
         let loader = WeekDaysLoaderStub()
-        loader.stub(with: [WeekDay(type: .today(Date()))])
+        loader.stub(with: [WeekDay(type: .today(july19))])
         
         let sut = makeSUT(loader: loader)
         sut.loadViewIfNeeded()
 
-        XCTAssertEqual(sut.numberOfRenderedDays(), 1)
+        let indexPath = IndexPath(item: 0, section: 0)
+        let ds = sut.collectionView.dataSource
+        let cell = try XCTUnwrap(ds?.collectionView(sut.collectionView, cellForItemAt: indexPath) as? DayCollectionViewCell)
+        
+        XCTAssertFalse(cell.selectedView.isHidden)
+        XCTAssertEqual(cell.dayOfTheWeekLabel.text, "Tue")
+        XCTAssertEqual(cell.dateOfTheMonthLabel.text, "19")
     }
     
     private func makeSUT(loader: WeekDaysLoaderStub) -> CalendarViewController {

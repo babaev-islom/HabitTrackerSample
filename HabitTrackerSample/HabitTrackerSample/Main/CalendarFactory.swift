@@ -38,6 +38,12 @@ final class CalendarFactory {
             calendar: Calendar(identifier: .gregorian)
         )
         let cellControllers = adapter.mapWeekDays(weekDays: days)
-        return CalendarViewController(cellControllers: cellControllers)
+        let controller = CalendarViewController(
+            cellControllers: cellControllers,
+            configureCollection: { collectionView in
+                collectionView.register(DayCollectionViewCell.self, forCellWithReuseIdentifier: DayCollectionViewCell.reuseIdentifier)
+            }
+        )
+        return controller
     }
 }

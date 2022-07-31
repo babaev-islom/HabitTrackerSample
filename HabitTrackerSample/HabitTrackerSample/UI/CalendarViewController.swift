@@ -12,16 +12,22 @@ final class CalendarViewController: UIViewController {
     
     private(set) lazy var collectionView: UICollectionView = {
         let layout = UICollectionViewFlowLayout()
-        let collection = UICollectionView(frame: .zero, collectionViewLayout: layout)
-        collection.delegate = self
-        collection.dataSource = self
-        return collection
+        let collectionView = UICollectionView(frame: .zero, collectionViewLayout: layout)
+        collectionView.delegate = self
+        collectionView.dataSource = self
+        collectionView.translatesAutoresizingMaskIntoConstraints = false
+        return collectionView
     }()
     
     private let cellControllers: [CellController]
+    private let configureCollection: (UICollectionView) -> Void
     
-    init(cellControllers: [CellController]) {
+    init(
+        cellControllers: [CellController],
+        configureCollection: @escaping (UICollectionView) -> Void
+    ) {
         self.cellControllers = cellControllers
+        self.configureCollection = configureCollection
         super.init(nibName: nil, bundle: nil)
     }
     
@@ -32,16 +38,36 @@ final class CalendarViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
+        configureCollection(collectionView)
     }
 }
 
 extension CalendarViewController: UICollectionViewDataSource {
+    func numberOfSections(in collectionView: UICollectionView) -> Int {
+        let numberOfSections = cellControllers.reduce(0) { partialResult, dataSource in
+            return partialResult + (dataSource.numberOfSections?(in: collectionView) ?? 1)
+        }
+        return numberOfSections
+    }
+    
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        return cellControllers[section].collectionView(collectionView, numberOfItemsInSection: section)
+        return dataSource(forSection: section, in: collectionView).collectionView(collectionView, numberOfItemsInSection: section)
     }
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
-        UICollectionViewCell()
+        dataSource(forSection: indexPath.section, in: collectionView)
+            .collectionView(collectionView, cellForItemAt: indexPath)
+    }
+    
+    private func dataSource(forSection section: Int, in collectionView: UICollectionView) -> CellController {
+        var sectionCount = 0
+        for dataSource in cellControllers {
+            sectionCount += dataSource.numberOfSections?(in: collectionView) ?? 1
+            if section < sectionCount {
+                return dataSource
+            }
+        }
+        fatalError("No data source found for \(section)")
     }
 }
 
