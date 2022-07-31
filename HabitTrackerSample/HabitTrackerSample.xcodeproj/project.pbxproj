@@ -14,6 +14,7 @@
 		4416FE1D28967D33004722DF /* PresentableDayModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4416FE1C28967D33004722DF /* PresentableDayModel.swift */; };
 		4416FE1F28967D4F004722DF /* DayViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4416FE1E28967D4F004722DF /* DayViewModel.swift */; };
 		4416FE2528967FBF004722DF /* CalendarViewControllerTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4416FE2428967FBF004722DF /* CalendarViewControllerTests.swift */; };
+		4416FE31289697D1004722DF /* CalendarViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4416FE30289697D1004722DF /* CalendarViewController.swift */; };
 		447F534B28942BE200B115F5 /* DateGenerator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 447F534A28942BE200B115F5 /* DateGenerator.swift */; };
 		447F534D28942C0600B115F5 /* CalendarDaysLoader.swift in Sources */ = {isa = PBXBuildFile; fileRef = 447F534C28942C0600B115F5 /* CalendarDaysLoader.swift */; };
 		44A53BEB2893FE29009880BF /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 44A53BEA2893FE29009880BF /* AppDelegate.swift */; };
@@ -44,6 +45,7 @@
 		4416FE1C28967D33004722DF /* PresentableDayModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PresentableDayModel.swift; sourceTree = "<group>"; };
 		4416FE1E28967D4F004722DF /* DayViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DayViewModel.swift; sourceTree = "<group>"; };
 		4416FE2428967FBF004722DF /* CalendarViewControllerTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CalendarViewControllerTests.swift; sourceTree = "<group>"; };
+		4416FE30289697D1004722DF /* CalendarViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CalendarViewController.swift; sourceTree = "<group>"; };
 		447F534A28942BE200B115F5 /* DateGenerator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DateGenerator.swift; sourceTree = "<group>"; };
 		447F534C28942C0600B115F5 /* CalendarDaysLoader.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CalendarDaysLoader.swift; sourceTree = "<group>"; };
 		44A53BE72893FE29009880BF /* HabitTrackerSample.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = HabitTrackerSample.app; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -127,6 +129,14 @@
 			path = UI;
 			sourceTree = "<group>";
 		};
+		4416FE2F289697CB004722DF /* UI */ = {
+			isa = PBXGroup;
+			children = (
+				4416FE30289697D1004722DF /* CalendarViewController.swift */,
+			);
+			path = UI;
+			sourceTree = "<group>";
+		};
 		447F534928942BC500B115F5 /* Calendar Use Case */ = {
 			isa = PBXGroup;
 			children = (
@@ -161,6 +171,7 @@
 				447F534928942BC500B115F5 /* Calendar Use Case */,
 				44A53C1128940011009880BF /* WeekDay Feature */,
 				4416FE1728967CC5004722DF /* Presentation */,
+				4416FE2F289697CB004722DF /* UI */,
 				44A53BEA2893FE29009880BF /* AppDelegate.swift */,
 				44A53BEC2893FE29009880BF /* SceneDelegate.swift */,
 				44A53BF32893FE2A009880BF /* Assets.xcassets */,
@@ -292,6 +303,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				4416FE31289697D1004722DF /* CalendarViewController.swift in Sources */,
 				4416FE1F28967D4F004722DF /* DayViewModel.swift in Sources */,
 				44A53BEB2893FE29009880BF /* AppDelegate.swift in Sources */,
 				447F534D28942C0600B115F5 /* CalendarDaysLoader.swift in Sources */,
