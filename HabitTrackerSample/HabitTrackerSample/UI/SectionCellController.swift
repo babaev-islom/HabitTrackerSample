@@ -32,13 +32,28 @@ extension SectionCellController: UICollectionViewDataSource {
     }
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
-        return dayCellControllers[indexPath.item].dequeueCell(in: collectionView, for: indexPath)
+        let controller = dayCellControllers[indexPath.item]
+        let cell = controller.dequeueCell(in: collectionView, for: indexPath)
+
+        if currentCellIndex == indexPath.item {
+            controller.select()
+        }
+        
+        return cell
     }
 }
 
 extension SectionCellController: UICollectionViewDelegate {
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
-        previousCellIndex = currentCellIndex
+        if currentCellIndex != previousCellIndex {
+            previousCellIndex = currentCellIndex
+        } else {
+            if let previousIndex = previousCellIndex {
+                dayCellControllers[previousIndex].deselect()
+            }
+            previousCellIndex = nil
+        }
+//        previousCellIndex = currentCellIndex
         currentCellIndex = indexPath.item
         
         if let previousIndex = previousCellIndex {
@@ -46,6 +61,10 @@ extension SectionCellController: UICollectionViewDelegate {
         }
         
         dayCellControllers[currentCellIndex].select()
+    }
+    
+    func collectionView(_ collectionView: UICollectionView, didEndDisplaying cell: UICollectionViewCell, forItemAt indexPath: IndexPath) {
+        dayCellControllers[indexPath.item].reuse()
     }
 }
 

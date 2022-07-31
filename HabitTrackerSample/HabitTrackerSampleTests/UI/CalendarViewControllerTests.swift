@@ -114,6 +114,36 @@ final class CalendarViewControllerTests: XCTestCase {
         XCTAssertFalse(cell3.isViewSelected, "Should not change selection state after 0st cell was selected")
     }
     
+    func test_cellSelection_withThreeCells_rendersSelectedCellAppropriatelyAfterReuse() throws {
+        let loader = WeekDaysLoaderStub()
+        loader.stub(with: [
+            WeekDay(type: .inThePast(Date())),
+            WeekDay(type: .today(Date())),
+            WeekDay(type: .inTheFuture(Date())),
+        ])
+        
+        let sut = makeSUT(loader: loader)
+        sut.loadViewIfNeeded()
+        
+        let cell1 = try XCTUnwrap(sut.cell(at: 0))
+        let cell2 = try XCTUnwrap(sut.cell(at: 1))
+        let cell3 = try XCTUnwrap(sut.cell(at: 2))
+       
+        XCTAssertFalse(cell1.isViewSelected, "Should be deselected since it has inThePast type")
+        XCTAssertTrue(cell2.isViewSelected, "Should be selected since it has today type")
+        XCTAssertFalse(cell3.isViewSelected, "Should be deselected since it has inTheFuture type")
+        
+        sut.selectCell(at: 0)
+        XCTAssertTrue(cell1.isViewSelected, "Should be set as selected after selecting it")
+        XCTAssertFalse(cell2.isViewSelected, "Should be deselected after selecting 1st cell")
+        XCTAssertFalse(cell3.isViewSelected, "Should not change selection state after 0st cell was selected")
+        
+        sut.simulateCellNotVisible(at: 1, cell: cell2)
+        
+        let cell4 = try XCTUnwrap(sut.cell(at: 1))
+        XCTAssertFalse(cell4.isViewSelected, "Should not be selected since 0st cell was selected and 1st cell was reused")
+    }
+    
     private func makeSUT(loader: WeekDaysLoaderStub) -> CalendarViewController {
         return CalendarFactory.makeCalendarViewController(loader: loader)
     }
@@ -165,5 +195,11 @@ private extension CalendarViewController {
         let indexPath = IndexPath(item: index, section: weekDaySection)
         let dl = collectionView.delegate
         dl?.collectionView?(collectionView, didSelectItemAt: indexPath)
+    }
+    
+    func simulateCellNotVisible(at index: Int, cell: UICollectionViewCell) {
+        let indexPath = IndexPath(item: index, section: weekDaySection)
+        let dl = collectionView.delegate
+        dl?.collectionView?(collectionView, didEndDisplaying: cell, forItemAt: indexPath)
     }
 }

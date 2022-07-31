@@ -76,4 +76,11 @@ extension CalendarViewController: UICollectionViewDelegate {
         dataSource(forSection: indexPath.section, in: collectionView)
             .collectionView?(collectionView, didSelectItemAt: indexPath)
     }
+    
+    func collectionView(_ collectionView: UICollectionView, didEndDisplaying cell: UICollectionViewCell, forItemAt indexPath: IndexPath) {
+        dataSource(forSection: indexPath.section, in: collectionView)
+            .collectionView?(collectionView, didEndDisplaying: cell, forItemAt: indexPath)
+
+    }
+}
 }

@@ -20,7 +20,6 @@ final class DayCellController {
         cell = collectionView.dequeueReusableCell(withReuseIdentifier: DayCollectionViewCell.reuseIdentifier, for: indexPath) as? DayCollectionViewCell
         cell?.dayOfTheWeekLabel.text = model.dayOfTheWeek
         cell?.dateOfTheMonthLabel.text = model.dateOfTheMonth
-        cell?.selectedView.isHidden = model.dateState != .today
         return cell!
     }
     
@@ -30,5 +29,9 @@ final class DayCellController {
     
     func deselect() {
         cell?.selectedView.isHidden = true
+    }
+    
+    func reuse() {
+        cell = nil
     }
 }
