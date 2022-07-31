@@ -7,7 +7,7 @@
 
 import Foundation
 
-class CalendarDateGenerator: DateGenerator {
+final class CalendarDateGenerator: DateGenerator {
     private let interval: () -> DateInterval
     private let calendar: Calendar
     
