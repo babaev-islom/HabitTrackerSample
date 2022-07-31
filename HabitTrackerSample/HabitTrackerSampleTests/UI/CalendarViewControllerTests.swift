@@ -30,10 +30,7 @@ final class CalendarViewControllerTests: XCTestCase {
         let sut = makeSUT(loader: loader)
         sut.loadViewIfNeeded()
 
-        let indexPath = IndexPath(item: 0, section: 0)
-        let ds = sut.collectionView.dataSource
-        let cell = try XCTUnwrap(ds?.collectionView(sut.collectionView, cellForItemAt: indexPath) as? DayCollectionViewCell)
-        
+        let cell = try XCTUnwrap(sut.cell(at: 0))
         XCTAssertFalse(cell.selectedView.isHidden)
         XCTAssertEqual(cell.dayOfTheWeekLabel.text, "Tue")
         XCTAssertEqual(cell.dateOfTheMonthLabel.text, "19")
@@ -66,5 +63,11 @@ private extension CalendarViewController {
     
     func numberOfRenderedDays() -> Int {
         return collectionView.numberOfItems(inSection: weekDaySection)
+    }
+    
+    func cell(at index: Int) -> DayCollectionViewCell? {
+        let indexPath = IndexPath(item: index, section: weekDaySection)
+        let ds = collectionView.dataSource
+        return ds?.collectionView(collectionView, cellForItemAt: indexPath) as? DayCollectionViewCell
     }
 }
