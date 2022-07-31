@@ -93,6 +93,30 @@
 			path = Presentation;
 			sourceTree = "<group>";
 		};
+		4416FE2028967DB8004722DF /* Presentation */ = {
+			isa = PBXGroup;
+			children = (
+				4416FE1528966FB1004722DF /* DayViewModelTests.swift */,
+			);
+			path = Presentation;
+			sourceTree = "<group>";
+		};
+		4416FE2128967DE4004722DF /* Infrastructure */ = {
+			isa = PBXGroup;
+			children = (
+				4416FE0E289661C4004722DF /* CalendarDateGenerator.swift */,
+			);
+			path = Infrastructure;
+			sourceTree = "<group>";
+		};
+		4416FE2228967DEB004722DF /* Use Cases */ = {
+			isa = PBXGroup;
+			children = (
+				44A53C122894003A009880BF /* CalendarDaysLoaderTests.swift */,
+			);
+			path = "Use Cases";
+			sourceTree = "<group>";
+		};
 		447F534928942BC500B115F5 /* Calendar Use Case */ = {
 			isa = PBXGroup;
 			children = (
@@ -139,9 +163,9 @@
 		44A53C032893FEE0009880BF /* HabitTrackerSampleTests */ = {
 			isa = PBXGroup;
 			children = (
-				44A53C122894003A009880BF /* CalendarDaysLoaderTests.swift */,
-				4416FE0E289661C4004722DF /* CalendarDateGenerator.swift */,
-				4416FE1528966FB1004722DF /* DayViewModelTests.swift */,
+				4416FE2228967DEB004722DF /* Use Cases */,
+				4416FE2128967DE4004722DF /* Infrastructure */,
+				4416FE2028967DB8004722DF /* Presentation */,
 			);
 			path = HabitTrackerSampleTests;
 			sourceTree = "<group>";
