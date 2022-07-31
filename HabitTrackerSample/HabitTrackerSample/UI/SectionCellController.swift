@@ -53,7 +53,6 @@ extension SectionCellController: UICollectionViewDelegate {
             }
             previousCellIndex = nil
         }
-//        previousCellIndex = currentCellIndex
         currentCellIndex = indexPath.item
         
         if let previousIndex = previousCellIndex {
