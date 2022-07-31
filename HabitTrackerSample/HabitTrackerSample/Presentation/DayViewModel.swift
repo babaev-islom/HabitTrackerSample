@@ -8,6 +8,9 @@
 import Foundation
 
 final class DayViewModel {
+    
+    private init() {}
+    
     static func map(
         weekDays: [WeekDay],
         timeZone: TimeZone,
