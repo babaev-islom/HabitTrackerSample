@@ -26,6 +26,8 @@ final class CalendarViewController: UIViewController {
     private let cellControllers: [CellController]
     private let configureCollection: (UICollectionView) -> Void
     
+    var scrollToCenter: ((UICollectionView) -> Void)?
+    
     init(
         cellControllers: [CellController],
         configureCollection: @escaping (UICollectionView) -> Void
@@ -37,6 +39,11 @@ final class CalendarViewController: UIViewController {
     
     required init?(coder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
+    }
+    
+    override func viewDidAppear(_ animated: Bool) {
+        super.viewDidAppear(animated)
+        scrollToCenter?(collectionView)
     }
     
     override func viewDidLoad() {

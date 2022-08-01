@@ -24,6 +24,10 @@ final class CalendarFactory {
                 collectionView.register(DayCollectionViewCell.self, forCellWithReuseIdentifier: DayCollectionViewCell.reuseIdentifier)
             }
         )
+        controller.scrollToCenter = { collectionView in
+            let indexPath = IndexPath(item: selectedIndex, section: 0)
+            collectionView.scrollToItem(at: indexPath, at: .centeredHorizontally, animated: false)
+        }
         return controller
     }
 }
