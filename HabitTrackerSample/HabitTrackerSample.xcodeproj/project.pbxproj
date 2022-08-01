@@ -8,6 +8,8 @@
 
 /* Begin PBXBuildFile section */
 		440130AA2897A3BA00ADAFD3 /* TodayModelSearchManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 440130A92897A3BA00ADAFD3 /* TodayModelSearchManager.swift */; };
+		440130AD2897A6C000ADAFD3 /* CalendarViewController+TestHelpers.swift in Sources */ = {isa = PBXBuildFile; fileRef = 440130AC2897A6C000ADAFD3 /* CalendarViewController+TestHelpers.swift */; };
+		440130AF2897A6D700ADAFD3 /* DayCollectionViewCell+TestHelpers.swift in Sources */ = {isa = PBXBuildFile; fileRef = 440130AE2897A6D700ADAFD3 /* DayCollectionViewCell+TestHelpers.swift */; };
 		4416FE0F289661C4004722DF /* CalendarDateGenerator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4416FE0E289661C4004722DF /* CalendarDateGenerator.swift */; };
 		4416FE1228966E4D004722DF /* CalendarDateGenerator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4416FE1128966E4D004722DF /* CalendarDateGenerator.swift */; };
 		4416FE1628966FB1004722DF /* DayViewModelTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4416FE1528966FB1004722DF /* DayViewModelTests.swift */; };
@@ -45,6 +47,8 @@
 
 /* Begin PBXFileReference section */
 		440130A92897A3BA00ADAFD3 /* TodayModelSearchManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TodayModelSearchManager.swift; sourceTree = "<group>"; };
+		440130AC2897A6C000ADAFD3 /* CalendarViewController+TestHelpers.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "CalendarViewController+TestHelpers.swift"; sourceTree = "<group>"; };
+		440130AE2897A6D700ADAFD3 /* DayCollectionViewCell+TestHelpers.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "DayCollectionViewCell+TestHelpers.swift"; sourceTree = "<group>"; };
 		4416FE0E289661C4004722DF /* CalendarDateGenerator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CalendarDateGenerator.swift; sourceTree = "<group>"; };
 		4416FE1128966E4D004722DF /* CalendarDateGenerator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CalendarDateGenerator.swift; sourceTree = "<group>"; };
 		4416FE1528966FB1004722DF /* DayViewModelTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DayViewModelTests.swift; sourceTree = "<group>"; };
@@ -91,6 +95,15 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		440130AB2897A6B400ADAFD3 /* Helpers */ = {
+			isa = PBXGroup;
+			children = (
+				440130AC2897A6C000ADAFD3 /* CalendarViewController+TestHelpers.swift */,
+				440130AE2897A6D700ADAFD3 /* DayCollectionViewCell+TestHelpers.swift */,
+			);
+			path = Helpers;
+			sourceTree = "<group>";
+		};
 		4416FE1028966E46004722DF /* Infrastructure */ = {
 			isa = PBXGroup;
 			children = (
@@ -136,6 +149,7 @@
 		4416FE2328967FB9004722DF /* UI */ = {
 			isa = PBXGroup;
 			children = (
+				440130AB2897A6B400ADAFD3 /* Helpers */,
 				4416FE2428967FBF004722DF /* CalendarViewControllerTests.swift */,
 			);
 			path = UI;
@@ -355,9 +369,11 @@
 			buildActionMask = 2147483647;
 			files = (
 				4416FE2528967FBF004722DF /* CalendarViewControllerTests.swift in Sources */,
+				440130AD2897A6C000ADAFD3 /* CalendarViewController+TestHelpers.swift in Sources */,
 				44A53C132894003A009880BF /* CalendarDaysLoaderTests.swift in Sources */,
 				4416FE1628966FB1004722DF /* DayViewModelTests.swift in Sources */,
 				4416FE0F289661C4004722DF /* CalendarDateGenerator.swift in Sources */,
+				440130AF2897A6D700ADAFD3 /* DayCollectionViewCell+TestHelpers.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
