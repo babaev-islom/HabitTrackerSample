@@ -76,15 +76,15 @@ extension CalendarViewController: UICollectionViewDataSource {
     }
     
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        return dataSource(forSection: section, in: collectionView).collectionView(collectionView, numberOfItemsInSection: section)
+        return cellController(forSection: section, in: collectionView).collectionView(collectionView, numberOfItemsInSection: section)
     }
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
-        dataSource(forSection: indexPath.section, in: collectionView)
+        cellController(forSection: indexPath.section, in: collectionView)
             .collectionView(collectionView, cellForItemAt: indexPath)
     }
     
-    private func dataSource(forSection section: Int, in collectionView: UICollectionView) -> CellController {
+    private func cellController(forSection section: Int, in collectionView: UICollectionView) -> CellController {
         var sectionCount = 0
         for dataSource in cellControllers {
             sectionCount += dataSource.numberOfSections?(in: collectionView) ?? 1
@@ -98,12 +98,12 @@ extension CalendarViewController: UICollectionViewDataSource {
 
 extension CalendarViewController: UICollectionViewDelegate {
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
-        dataSource(forSection: indexPath.section, in: collectionView)
+        cellController(forSection: indexPath.section, in: collectionView)
             .collectionView?(collectionView, didSelectItemAt: indexPath)
     }
     
     func collectionView(_ collectionView: UICollectionView, didEndDisplaying cell: UICollectionViewCell, forItemAt indexPath: IndexPath) {
-        dataSource(forSection: indexPath.section, in: collectionView)
+        cellController(forSection: indexPath.section, in: collectionView)
             .collectionView?(collectionView, didEndDisplaying: cell, forItemAt: indexPath)
 
     }
@@ -111,10 +111,10 @@ extension CalendarViewController: UICollectionViewDelegate {
 
 extension CalendarViewController: UICollectionViewDelegateFlowLayout {
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
-        dataSource(forSection: indexPath.section, in: collectionView).collectionView?(collectionView, layout: collectionViewLayout, sizeForItemAt: indexPath) ?? .zero
+        cellController(forSection: indexPath.section, in: collectionView).collectionView?(collectionView, layout: collectionViewLayout, sizeForItemAt: indexPath) ?? .zero
     }
     
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, insetForSectionAt section: Int) -> UIEdgeInsets {
-        dataSource(forSection: section, in: collectionView).collectionView?(collectionView, layout: collectionViewLayout, insetForSectionAt: section) ?? .zero
+        cellController(forSection: section, in: collectionView).collectionView?(collectionView, layout: collectionViewLayout, insetForSectionAt: section) ?? .zero
     }
 }
