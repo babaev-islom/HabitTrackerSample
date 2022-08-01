@@ -158,6 +158,8 @@
 				4416FE37289698BD004722DF /* CalendarFactory.swift */,
 				448E3C5F2896CEC500F3A297 /* CalendarLoaderAdapter.swift */,
 				440130A92897A3BA00ADAFD3 /* TodayModelSearchManager.swift */,
+				44A53BEA2893FE29009880BF /* AppDelegate.swift */,
+				44A53BEC2893FE29009880BF /* SceneDelegate.swift */,
 			);
 			path = Main;
 			sourceTree = "<group>";
@@ -198,8 +200,6 @@
 				4416FE1728967CC5004722DF /* Presentation */,
 				4416FE2F289697CB004722DF /* UI */,
 				4416FE36289698AF004722DF /* Main */,
-				44A53BEA2893FE29009880BF /* AppDelegate.swift */,
-				44A53BEC2893FE29009880BF /* SceneDelegate.swift */,
 				44A53BF32893FE2A009880BF /* Assets.xcassets */,
 				44A53BF52893FE2A009880BF /* LaunchScreen.storyboard */,
 				44A53BF82893FE2A009880BF /* Info.plist */,
