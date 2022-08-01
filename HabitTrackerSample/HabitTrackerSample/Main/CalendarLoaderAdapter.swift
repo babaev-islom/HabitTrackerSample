@@ -24,16 +24,8 @@ final class CalendarLoaderAdapter {
         return [
             SectionCellController(
                 dayCellControllers: cellControllers,
-                selectedCellIndex: findTodayModel(in: presentableModels)
+                selectedCellIndex: TodayModelSearchManager.findTodayModel(in: weekDays)
             )
         ]
-    }
-    
-    private func findTodayModel(in models: [PresentableDayModel]) -> Int {
-        var selectedIndex = 0
-        models.enumerated().forEach { index, model in
-            if model.dateState == .today { selectedIndex = index }
-        }
-        return selectedIndex
     }
 }

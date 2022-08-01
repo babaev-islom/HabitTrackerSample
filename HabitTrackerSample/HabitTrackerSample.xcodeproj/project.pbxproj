@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		440130AA2897A3BA00ADAFD3 /* TodayModelSearchManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 440130A92897A3BA00ADAFD3 /* TodayModelSearchManager.swift */; };
 		4416FE0F289661C4004722DF /* CalendarDateGenerator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4416FE0E289661C4004722DF /* CalendarDateGenerator.swift */; };
 		4416FE1228966E4D004722DF /* CalendarDateGenerator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4416FE1128966E4D004722DF /* CalendarDateGenerator.swift */; };
 		4416FE1628966FB1004722DF /* DayViewModelTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4416FE1528966FB1004722DF /* DayViewModelTests.swift */; };
@@ -43,6 +44,7 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		440130A92897A3BA00ADAFD3 /* TodayModelSearchManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TodayModelSearchManager.swift; sourceTree = "<group>"; };
 		4416FE0E289661C4004722DF /* CalendarDateGenerator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CalendarDateGenerator.swift; sourceTree = "<group>"; };
 		4416FE1128966E4D004722DF /* CalendarDateGenerator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CalendarDateGenerator.swift; sourceTree = "<group>"; };
 		4416FE1528966FB1004722DF /* DayViewModelTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DayViewModelTests.swift; sourceTree = "<group>"; };
@@ -155,6 +157,7 @@
 			children = (
 				4416FE37289698BD004722DF /* CalendarFactory.swift */,
 				448E3C5F2896CEC500F3A297 /* CalendarLoaderAdapter.swift */,
+				440130A92897A3BA00ADAFD3 /* TodayModelSearchManager.swift */,
 			);
 			path = Main;
 			sourceTree = "<group>";
@@ -327,6 +330,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				4416FE31289697D1004722DF /* CalendarViewController.swift in Sources */,
+				440130AA2897A3BA00ADAFD3 /* TodayModelSearchManager.swift in Sources */,
 				448E3C602896CEC500F3A297 /* CalendarLoaderAdapter.swift in Sources */,
 				4416FE1F28967D4F004722DF /* DayViewModel.swift in Sources */,
 				44A53BEB2893FE29009880BF /* AppDelegate.swift in Sources */,
