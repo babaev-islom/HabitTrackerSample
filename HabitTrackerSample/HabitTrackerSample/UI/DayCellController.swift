@@ -20,6 +20,17 @@ final class DayCellController {
         cell = collectionView.dequeueReusableCell(withReuseIdentifier: DayCollectionViewCell.reuseIdentifier, for: indexPath) as? DayCollectionViewCell
         cell?.dayOfTheWeekLabel.text = model.dayOfTheWeek
         cell?.dateOfTheMonthLabel.text = model.dateOfTheMonth
+        switch model.dateState {
+        case .inThePast:
+            cell?.dayOfTheWeekLabel.textColor = .black
+            cell?.dateOfTheMonthLabel.textColor = .black
+        case .today:
+            cell?.dayOfTheWeekLabel.textColor = .blue
+            cell?.dateOfTheMonthLabel.textColor = .blue
+        case .inTheFuture:
+            cell?.dayOfTheWeekLabel.textColor = .lightGray
+            cell?.dateOfTheMonthLabel.textColor = .lightGray
+        }
         return cell!
     }
     
