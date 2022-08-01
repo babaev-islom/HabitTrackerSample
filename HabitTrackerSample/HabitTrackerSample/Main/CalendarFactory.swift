@@ -8,6 +8,9 @@
 import Foundation
 
 final class CalendarFactory {
+    
+    private init() {}
+    
     static func makeCalendarViewController(loader: WeekDaysLoader) -> CalendarViewController {
         let days = loader.loadDays()
         let selectedIndex = TodayModelSearchManager.findTodayModel(in: days)
