@@ -208,9 +208,9 @@
 		44A53BE92893FE29009880BF /* HabitTrackerSample */ = {
 			isa = PBXGroup;
 			children = (
-				4416FE1028966E46004722DF /* Infrastructure */,
-				447F534928942BC500B115F5 /* Calendar Use Case */,
 				44A53C1128940011009880BF /* WeekDay Feature */,
+				447F534928942BC500B115F5 /* Calendar Use Case */,
+				4416FE1028966E46004722DF /* Infrastructure */,
 				4416FE1728967CC5004722DF /* Presentation */,
 				4416FE2F289697CB004722DF /* UI */,
 				4416FE36289698AF004722DF /* Main */,
@@ -224,10 +224,10 @@
 		44A53C032893FEE0009880BF /* HabitTrackerSampleTests */ = {
 			isa = PBXGroup;
 			children = (
-				4416FE2328967FB9004722DF /* UI */,
 				4416FE2228967DEB004722DF /* Use Cases */,
 				4416FE2128967DE4004722DF /* Infrastructure */,
 				4416FE2028967DB8004722DF /* Presentation */,
+				4416FE2328967FB9004722DF /* UI */,
 			);
 			path = HabitTrackerSampleTests;
 			sourceTree = "<group>";
