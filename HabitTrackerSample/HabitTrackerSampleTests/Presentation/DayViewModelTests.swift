@@ -8,7 +8,7 @@
 import XCTest
 @testable import HabitTrackerSample
 
-class DayViewModelTests: XCTestCase {
+final class DayViewModelTests: XCTestCase {
     private let timeZone = TimeZone(identifier: "GMT")!
     private let locale = Locale(identifier: "en_US_POSIX")
     private let calendar = Calendar(identifier: .gregorian)
