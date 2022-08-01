@@ -51,3 +51,8 @@ Since `Date` object is meaningless for displaying on the screen, presentation la
 
 ### Main
 Last piece in the chain of all modules that ties everything together is the `Main`. Main is also called as `Composition Root` which handles full DI-graph instantiation. The power of composing everything together in the centralized place helps decouple classes in different layers from each other. As you can see from the diagram, Main almost references everything in the app.
+
+## How to run the app
+- Sample project was build with Xcode `13.2.1`. You should have Xcode 13 and above to run this sample project. 
+- You can run the app by simply pressing `Run` button or `⌘ + R`.
+- Run tests by simply pressing `⌘ + U`.
