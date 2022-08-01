@@ -3,9 +3,11 @@
 ## Sample feature from the app  [Habits of Health - Daily Tracker](https://apps.apple.com/us/app/habits-of-health-daily-tracker/id1477345602)
 
 ### Sample Screenshots
-<img src="./Simulator%20Screen%20Shot%20-%201.png" alt="drawing" width="200"/>
-<img src="./Simulator%20Screen%20Shot%20-%202.png" alt="drawing" width="200"/>
-<img src="./Simulator%20Screen%20Shot%20-%203.png" alt="drawing" width="200"/>
+<p float="left">
+    <img src="./Simulator%20Screen%20Shot%20-%201.png" alt="drawing" width="200"/>
+    <img src="./Simulator%20Screen%20Shot%20-%202.png" alt="drawing" width="200"/>
+    <img src="./Simulator%20Screen%20Shot%20-%203.png" alt="drawing" width="200"/>
+</p>
 
 ### Feature Requirements
 - Fetch past week, current week and next week from the system calendar
